@@ -9,19 +9,26 @@ import {
   Sparkles,
   Phone,
   QrCode,
-  ArrowRight
+  ArrowRight,
+  Power,
+  PauseCircle,
+  PlayCircle,
+  Check,
+  AlertTriangle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export const SubscriptionPage: React.FC = () => {
-  const { profile, setProfile, playCorrect, playFanfare } = useApp();
+  const { profile, setSubscriptionStatus, toggleSubscription, playFanfare, playClick } = useApp();
 
   const [activePaymentMethod, setActivePaymentMethod] = useState<'baridimob' | 'ccp' | 'flexy' | 'dahabiya'>('baridimob');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
+  // Manual status change notification
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+
   // Activation simulator state
   const [transactionCode, setTransactionCode] = useState('');
-  const [receiptImage, setReceiptImage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activationSuccess, setActivationSuccess] = useState(false);
 
@@ -31,26 +38,43 @@ export const SubscriptionPage: React.FC = () => {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const handleSimulateActivation = (e: React.FormEvent) => {
+  const handleManualToggle = async () => {
+    playClick();
+    const newStatus = !profile.isSubscribed;
+    await setSubscriptionStatus(newStatus);
+    
+    if (newStatus) {
+      setStatusMessage('تم تفعيل اشتراك التلميذ يدوياً بنجاح! 🚀 (كامل الصلاحيات متاحة)');
+      try {
+        confetti({ particleCount: 70, spread: 60 });
+      } catch {}
+    } else {
+      setStatusMessage('تم إيقاف اشتراك التلميذ مؤقتاً ⏸️ (الوضع التجريبي)');
+    }
+
+    setTimeout(() => {
+      setStatusMessage(null);
+    }, 4000);
+  };
+
+  const handleSimulateActivation = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!transactionCode.trim()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsSubmitting(false);
       setActivationSuccess(true);
-      setProfile(p => ({ ...p, isSubscribed: true }));
+      await setSubscriptionStatus(true);
       playFanfare();
       try {
         confetti({ particleCount: 100, spread: 70 });
-      } catch {
-        // safe
-      }
+      } catch {}
     }, 1000);
   };
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="space-y-8 pb-16 select-none" dir="rtl">
       
       {/* Banner */}
       <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-500 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
@@ -59,10 +83,10 @@ export const SubscriptionPage: React.FC = () => {
             <span>طرق الدفع المعتمدة محلياً بالجزائر 🇩🇿</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black">
-            باقات الاشتراك وتفعيل الحساب
+            باقات الاشتراك وإدارة التفعيل
           </h1>
           <p className="text-xs sm:text-sm text-white/90 max-w-xl font-medium leading-relaxed">
-            اشتراك رمزي في متناول كل أسرة جزائرية: 2000 دج فقط (200 ألف سنتيم) للسنة الدراسية كاملة، مع دعم الدفع عبر بريدي موب ومكاتب البريد وفليكسي.
+            اشتراك رمزي في متناول كل أسرة جزائرية: 2000 دج فقط للسنة الدراسية كاملة، مع إمكانية التفعيل أو الإيقاف اليدوي الفوري للمنصة.
           </p>
         </div>
 
@@ -71,34 +95,76 @@ export const SubscriptionPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Subscription Status Pill */}
-      <div className={`p-5 rounded-3xl border-2 flex items-center justify-between ${
-        profile.isSubscribed
-          ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-400 text-emerald-900 dark:text-emerald-200'
-          : 'bg-amber-50 dark:bg-slate-800 border-amber-300 text-amber-900 dark:text-amber-200'
-      }`}>
-        <div className="flex items-center gap-3">
-          <span className="text-3xl">{profile.isSubscribed ? '👑' : '⏳'}</span>
-          <div>
-            <h3 className="text-base font-black">
-              {profile.isSubscribed ? 'حسابك مفعل بالباقة السنوية الشاملة' : 'أنت تستخدم الباقة التجريبية المجانية'}
-            </h3>
-            <p className="text-xs font-medium opacity-85">
-              {profile.isSubscribed ? 'تتمتع بوصول كامل وغير محدود لكافة الدروس والامتحانات والمساعد الذكي.' : 'قم بالترقية لفتح كامل بنك الامتحانات والمذكرات.'}
-            </p>
+      {/* Manual Subscription Management Card (تفعيل / إيقاف التفعيل يدوياً) */}
+      <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[2.5rem] border-2 border-orange-200 dark:border-slate-700 shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-inner shrink-0 ${
+              profile.isSubscribed
+                ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-300'
+                : 'bg-amber-100 text-amber-600 dark:bg-slate-700 dark:text-amber-300'
+            }`}>
+              {profile.isSubscribed ? '👑' : '⏳'}
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  التحكم اليدوي في اشتراك التلميذ:
+                </h3>
+                <span className={`text-xs font-black px-3 py-0.5 rounded-full ${
+                  profile.isSubscribed
+                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 border border-emerald-300'
+                    : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 border border-slate-300'
+                }`}>
+                  {profile.isSubscribed ? '● الاشتراك مفعّل ونشط' : '○ الاشتراك متوقف (باقة مجانية)'}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                {profile.isSubscribed
+                  ? 'التلميذ يتمتع بفتح كامل الدروس، بنك الامتحانات، المساعد الذكي، وحل التمارين التفاعلية.'
+                  : 'يمكنك تفعيل الاشتراك بنقرة واحدة لفتح جميع المميزات للتلميذ فوراً دون انتظار.'}
+              </p>
+            </div>
           </div>
+
+          {/* Quick Manual Toggle Action Button */}
+          <button
+            onClick={handleManualToggle}
+            className={`px-6 py-3.5 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap shrink-0 ${
+              profile.isSubscribed
+                ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-300 dark:bg-slate-750 dark:text-rose-300 dark:border-rose-800'
+                : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-emerald-500/30'
+            }`}
+          >
+            {profile.isSubscribed ? (
+              <>
+                <PauseCircle size={18} />
+                <span>إيقاف / تجميد الاشتراك يدوياً ⏸️</span>
+              </>
+            ) : (
+              <>
+                <PlayCircle size={18} />
+                <span>تفعيل اشتراك التلميذ يدوياً 🚀</span>
+              </>
+            )}
+          </button>
         </div>
-        {profile.isSubscribed && (
-          <span className="text-xs font-black bg-emerald-500 text-white px-3 py-1 rounded-full">
-            نشط ومفعل ✓
-          </span>
+
+        {/* Status Notification Message */}
+        {statusMessage && (
+          <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-2xl text-xs font-black flex items-center gap-2 animate-in fade-in">
+            <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+            <span>{statusMessage}</span>
+          </div>
         )}
       </div>
 
       {/* Payment Methods Tabs */}
       <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
         <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-          <span>اختر طريقة الدفع المناسبة لك في الجزائر:</span>
+          <span>طرق الدفع والشحن المعتمدة في الجزائر:</span>
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -228,7 +294,7 @@ export const SubscriptionPage: React.FC = () => {
       <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
         <div className="space-y-1">
           <h2 className="text-lg font-black text-slate-900 dark:text-white">
-            تأكيد الدفع وتفعيل الحساب الفوري
+            تأكيد الدفع التلقائي برقم الوصل
           </h2>
           <p className="text-xs text-slate-500 font-medium">
             بعد إجراء التحويل، أدخل رقم وصل المعاملة أو كود بطاقة الاشتراك لتفعيل حسابك تلقائياً في لحظات!

@@ -12,11 +12,12 @@ import {
   Sparkles,
   KeyRound,
   CheckCircle2,
-  RotateCcw
+  RotateCcw,
+  CreditCard
 } from 'lucide-react';
 
 export const ProfilePage: React.FC = () => {
-  const { profile, setProfile, isNightWarmMode, toggleNightWarmMode, playClick, playCorrect } = useApp();
+  const { profile, setProfile, isNightWarmMode, toggleNightWarmMode, toggleSubscription, playClick, playCorrect } = useApp();
 
   const [studentName, setStudentName] = useState(profile.name);
   const [schoolName, setSchoolName] = useState(profile.schoolName);
@@ -211,6 +212,37 @@ export const ProfilePage: React.FC = () => {
               }`}
             >
               {isNightWarmMode ? 'مفعل ✓' : 'معطل'}
+            </button>
+          </div>
+
+          {/* Subscription Manual Toggle Card for Parents */}
+          <div className="sm:col-span-2 p-4 rounded-2xl bg-slate-50 dark:bg-slate-750 border-2 border-orange-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-0.5">
+              <span className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <CreditCard size={16} className="text-orange-500" />
+                <span>التحكم في تفعيل / إيقاف اشتراك التلميذ يدوياً:</span>
+              </span>
+              <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                {profile.isSubscribed 
+                  ? 'الاشتراك نشط ومفعّل (الباقة السنوية الشاملة - كافة الدروس والامتحانات مفتوحة)' 
+                  : 'الاشتراك متوقف حالياً (الباقة المجانية التجريبية)'}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={toggleSubscription}
+              className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm ${
+                profile.isSubscribed
+                  ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 dark:bg-slate-700 dark:text-rose-300'
+                  : 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/20'
+              }`}
+            >
+              {profile.isSubscribed ? (
+                <span>إيقاف الاشتراك مؤقتاً ⏸️</span>
+              ) : (
+                <span>تفعيل الاشتراك يدوياً 🚀</span>
+              )}
             </button>
           </div>
         </div>

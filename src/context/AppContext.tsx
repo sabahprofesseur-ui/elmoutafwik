@@ -57,6 +57,8 @@ interface AppContextType {
   addStars: (count: number) => void;
   markLessonComplete: (lessonId: string) => void;
   markExamComplete: (examId: string) => void;
+  setSubscriptionStatus: (active: boolean) => Promise<void>;
+  toggleSubscription: () => Promise<void>;
 }
 
 const defaultProfile: StudentProfile = {
@@ -146,6 +148,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               streakDays: typeof data.streak === 'number' ? data.streak : prev.streakDays,
               completedLessons: Array.isArray(data.completedLessons) ? data.completedLessons : prev.completedLessons,
               unlockedBadges: Array.isArray(data.badges) ? data.badges : prev.unlockedBadges,
+              isSubscribed: typeof data.isSubscribed === 'boolean' ? data.isSubscribed : prev.isSubscribed,
             }));
           } else {
             // First time user document creation
@@ -158,6 +161,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               streak: 1,
               badges: ['first_step'],
               completedLessons: [],
+              isSubscribed: true,
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
             };
@@ -169,6 +173,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               email: user.email || '',
               name: initialDoc.name,
               gradeId: initialDoc.grade as GradeId,
+              isSubscribed: true,
             }));
           }
         } catch (err) {
@@ -198,6 +203,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         streak: profile.streakDays,
         badges: profile.unlockedBadges,
         completedLessons: profile.completedLessons,
+        isSubscribed: profile.isSubscribed,
         updatedAt: new Date().toISOString(),
       }).catch(err => {
         // Soft catch during auto-sync
@@ -422,6 +428,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
+  const setSubscriptionStatus = async (active: boolean) => {
+    soundManager.playClick();
+    if (active) {
+      soundManager.playFanfare();
+    }
+    setProfile(prev => ({
+      ...prev,
+      isSubscribed: active,
+    }));
+
+    if (currentUser) {
+      try {
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        await updateDoc(userDocRef, {
+          isSubscribed: active,
+          updatedAt: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.warn('Error syncing subscription to Firestore:', err);
+      }
+    }
+  };
+
+  const toggleSubscription = async () => {
+    await setSubscriptionStatus(!profile.isSubscribed);
+  };
+
   const isAuthenticated = Boolean(currentUser || isGuest);
 
   return (
@@ -459,6 +492,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addStars,
         markLessonComplete,
         markExamComplete,
+        setSubscriptionStatus,
+        toggleSubscription,
       }}
     >
       {children}
