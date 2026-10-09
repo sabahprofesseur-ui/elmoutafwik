@@ -46,7 +46,7 @@ export const LoginPage: React.FC = () => {
   const selectedGradeObj = GRADES.find(g => g.id === currentGrade) || GRADES[2];
 
   // The permanent platform URLs
-  const vercelAppUrl = 'https://elmoutafwik.vercel.app';
+  const vercelAppUrl = 'https://thaloob-dz.vercel.app';
   const liveAppUrl = window.location.origin;
 
   const handleCopyLink = () => {
@@ -434,7 +434,7 @@ export const LoginPage: React.FC = () => {
 
           <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-2 rounded-xl border border-slate-200 dark:border-slate-700 gap-2">
             <span className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 truncate ltr">
-              elmoutafwik.vercel.app
+              thaloob-dz.vercel.app
             </span>
 
             <button

@@ -185,7 +185,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400">البريد الإلكتروني الرسمي:</p>
-                  <p className="text-slate-900 dark:text-white">contact@elmoutafwik.dz</p>
+                  <p className="text-slate-900 dark:text-white">contact@thaloob.dz</p>
                 </div>
               </div>
             </div>
