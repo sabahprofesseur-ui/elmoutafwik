@@ -1,0 +1,91 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data for registered students and parents",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student or parent",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "grade": {
+          "type": "string",
+          "description": "Grade level e.g. 1ap, 2ap, 3ap, 4ap, 5ap"
+        },
+        "points": {
+          "type": "number",
+          "description": "Accumulated learning points"
+        },
+        "streak": {
+          "type": "number",
+          "description": "Consecutive days streak"
+        },
+        "badges": {
+          "type": "array",
+          "description": "List of unlocked badges"
+        },
+        "completedLessons": {
+          "type": "array",
+          "description": "List of completed lesson IDs"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["userId", "name", "email", "grade"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "User lesson scores and activity",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The user ID"
+        },
+        "lessonId": {
+          "type": "string",
+          "description": "The lesson identifier"
+        },
+        "score": {
+          "type": "number",
+          "description": "Quiz score percentage"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether lesson was completed"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Completion time"
+        }
+      },
+      "required": ["userId", "lessonId", "completed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profiles with access restricted to the profile owner"
+    },
+    "/users/{userId}/progress/{lessonId}": {
+      "schema": "UserProgress",
+      "description": "Stores lesson progress for each user"
+    }
+  }
+}
