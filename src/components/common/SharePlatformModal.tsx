@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, Share2, Globe, Sparkles, MessageCircle, QrCode } from 'lucide-react';
+import { X, Copy, Check, Share2, Globe, Sparkles, MessageCircle } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 interface SharePlatformModalProps {
@@ -11,8 +11,8 @@ export const SharePlatformModal: React.FC<SharePlatformModalProps> = ({ isOpen, 
   const { playClick } = useApp();
   const [copiedLink, setCopiedLink] = useState(false);
   
-  // Official new chosen platform link
-  const officialDomain = 'https://thaloob-dz.vercel.app';
+  // Official chosen platform link
+  const officialDomain = 'https://najah-primaire-dz.vercel.app';
   const livePreviewUrl = 'https://ais-pre-qh3q5go3wfd522bhhvrk2k-113220139459.europe-west3.run.app';
 
   if (!isOpen) return null;
@@ -26,7 +26,7 @@ export const SharePlatformModal: React.FC<SharePlatformModalProps> = ({ isOpen, 
 
   const handleWhatsAppShare = () => {
     playClick();
-    const text = encodeURIComponent(`منصة المتفوق الصغير (ثعلوب) للتعليم التفاعلي للطور الابتدائي بالجزائر 🇩🇿 وفق منهاج الجيل الثاني:\n${officialDomain}`);
+    const text = encodeURIComponent(`منصة نجاح للتعليم الابتدائي بالجزائر 🇩🇿 (المتفوق الصغير) وفق منهاج الجيل الثاني:\n${officialDomain}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
@@ -44,42 +44,42 @@ export const SharePlatformModal: React.FC<SharePlatformModalProps> = ({ isOpen, 
 
         {/* Header */}
         <div className="flex items-center gap-3">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center text-3xl shadow-md shrink-0">
-            🦊
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-3xl shadow-md shrink-0">
+            🌟
           </div>
           <div>
-            <span className="text-[11px] font-black text-orange-600 bg-orange-100 dark:bg-slate-800 px-2.5 py-0.5 rounded-full">
-              الرابط الرسمي الجديد للمنصة 🇩🇿
+            <span className="text-[11px] font-black text-emerald-800 bg-emerald-100 dark:bg-slate-800 dark:text-emerald-300 px-2.5 py-0.5 rounded-full">
+              الرابط المعتمد الجديد 🇩🇿
             </span>
             <h3 className="text-lg font-black text-slate-900 dark:text-white mt-0.5">
-              منصة ثعلوب التعليمية
+              منصة نجاح للطور الابتدائي
             </h3>
           </div>
         </div>
 
         <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
-          تم تحديث وتثبيت اسم رابط المنصة الجديد رسمياً لدخول التلاميذ والأولياء وتثبيت التطبيق:
+          تم تحديث وتثبيت اسم رابط المنصة الرسمي الجديد لدخول التلاميذ والأولياء وتثبيت التطبيق:
         </p>
 
         {/* Primary Official Domain Card */}
-        <div className="p-4 rounded-2xl bg-orange-50/80 dark:bg-slate-800/90 border-2 border-orange-300 dark:border-slate-700 space-y-2">
+        <div className="p-4 rounded-2xl bg-emerald-50/80 dark:bg-slate-800/90 border-2 border-emerald-300 dark:border-slate-700 space-y-2">
           <div className="flex items-center justify-between text-xs font-black text-slate-700 dark:text-slate-300">
-            <span className="flex items-center gap-1.5 text-orange-700 dark:text-orange-400">
+            <span className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300">
               <Globe size={15} />
-              <span>رابط المنصة الأساسي (Vercel):</span>
+              <span>رابط المنصة الرسمي (Vercel):</span>
             </span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] bg-emerald-200/80 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-300 px-2.5 py-0.5 rounded-full font-black">
               معتمد ورسمي ✓
             </span>
           </div>
 
           <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 gap-2">
-            <span className="text-sm font-mono font-black text-orange-600 dark:text-orange-400 truncate ltr">
-              thaloob-dz.vercel.app
+            <span className="text-sm font-mono font-black text-emerald-700 dark:text-emerald-400 truncate ltr">
+              najah-primaire-dz.vercel.app
             </span>
             <button
               onClick={() => handleCopy(officialDomain)}
-              className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-xs font-black flex items-center gap-1 transition-all cursor-pointer shrink-0"
+              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-black flex items-center gap-1 transition-all cursor-pointer shrink-0"
             >
               {copiedLink ? <Check size={13} /> : <Copy size={13} />}
               <span>{copiedLink ? 'تم النسخ!' : 'نسخ الرابط'}</span>
