@@ -14,8 +14,10 @@ import {
   User as UserIcon,
   LogOut,
   LogIn,
-  Star
+  Star,
+  Share2
 } from 'lucide-react';
+import { SharePlatformModal } from '../common/SharePlatformModal';
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
@@ -45,6 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarOpen }
 
   const [showGradeMenu, setShowGradeMenu] = useState(false);
   const [selectedLang, setSelectedLang] = useState<'ar' | 'fr' | 'en'>('ar');
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const currentGrade = GRADES.find(g => g.id === selectedGrade) || GRADES[2];
   const isHome = nav.page === 'home';
@@ -175,6 +178,19 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarOpen }
             </button>
           )}
 
+          {/* Share Link Button */}
+          <button
+            onClick={() => {
+              playClick();
+              setIsShareModalOpen(true);
+            }}
+            title="رابط المنصة للنشر والمشاركة"
+            className="flex items-center gap-1.5 py-1.5 px-2.5 sm:px-3 rounded-xl bg-orange-100 hover:bg-orange-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-orange-800 dark:text-orange-300 font-black text-xs transition-all cursor-pointer shadow-xs"
+          >
+            <Share2 size={14} />
+            <span className="hidden sm:inline">رابط المنصة 🔗</span>
+          </button>
+
           {/* Sound & Dark Mode */}
           <button
             onClick={toggleSound}
@@ -199,6 +215,12 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarOpen }
         </div>
 
       </div>
+
+      {/* Share Platform Modal */}
+      <SharePlatformModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+      />
     </header>
   );
 };
