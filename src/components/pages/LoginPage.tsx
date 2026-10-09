@@ -161,7 +161,7 @@ export const LoginPage: React.FC = () => {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-black text-[#0F172A] dark:text-white pt-1">
-            {mode === 'register' ? 'انضم إلى أبطال المتفوق! 🚀' : 'مرحباً بك مجدداً يا بطل 🔑'}
+            {mode === 'register' ? 'انضم إلى أبطال منصة النجاح! 🚀' : 'مرحباً بك مجدداً يا بطل 🔑'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-semibold">
             {mode === 'register' 

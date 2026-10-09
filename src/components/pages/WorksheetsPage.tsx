@@ -163,7 +163,7 @@ export const WorksheetsPage: React.FC = () => {
                 </div>
                 <div className="text-3xl">🇩🇿</div>
                 <div className="text-left">
-                  <p>مدرسة المتفوق الصغير الابتدائية</p>
+                  <p>مدرسة منصة النجاح الابتدائية</p>
                   <p>السنة الدراسية: {new Date().getFullYear()}/{new Date().getFullYear() + 1}</p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export const WorksheetsPage: React.FC = () => {
 
             {/* Footer */}
             <div className="border-t pt-4 flex justify-between items-center text-xs font-black text-slate-500">
-              <span>منصة المتفوق الصغير - بالتوفيق والنجاح لأبطالنا 🦊</span>
+              <span>منصة النجاح - بالتوفيق والنجاح لأبطالنا 🦊</span>
               <span>الصفحة 1 من 1</span>
             </div>
 

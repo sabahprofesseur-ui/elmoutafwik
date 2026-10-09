@@ -15,8 +15,8 @@ export default defineConfig(() => {
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icon.svg'],
         manifest: {
           id: '/',
-          name: 'المتفوق الصغير',
-          short_name: 'المتفوق',
+          name: 'منصة النجاح',
+          short_name: 'النجاح',
           description: 'منصة التعليم التفاعلي للطور الابتدائي بالجزائر وفق المنهاج الرسمي للجيل الثاني.',
           theme_color: '#FF8A00',
           background_color: '#FFFDF9',

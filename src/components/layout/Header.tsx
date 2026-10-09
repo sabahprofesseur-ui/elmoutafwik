@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarOpen }
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl overflow-hidden shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shrink-0">
               <img
                 src="/icon.svg"
-                alt="المتفوق الصغير"
+                alt="منصة النجاح"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   (e.currentTarget as HTMLElement).style.display = 'none';
@@ -86,10 +86,10 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, isSidebarOpen }
 
             <div className="flex flex-col text-right">
               <span className="text-lg sm:text-2xl font-black text-[#0F172A] dark:text-white tracking-tight leading-none">
-                المتفوق الصغير
+                منصة النجاح
               </span>
               <span className="text-[10px] sm:text-xs font-black text-[#FF8A00] mt-1 hidden sm:block">
-                منصة التعليم التفاعلي للطور الابتدائي 🇩🇿
+                التعليم التفاعلي للطور الابتدائي بالجزائر 🇩🇿
               </span>
             </div>
           </div>

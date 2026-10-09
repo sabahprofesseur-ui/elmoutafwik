@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
             <GraduationCap size={28} />
           </div>
           <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            المتفوق الصغير
+            منصة النجاح
           </span>
         </div>
 

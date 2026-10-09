@@ -58,7 +58,7 @@ export const PwaInstallModal: React.FC<PwaInstallModalProps> = ({
             <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-amber-400 bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center">
               <img
                 src="/icon.svg"
-                alt="المتفوق الصغير"
+                alt="منصة النجاح"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -73,7 +73,7 @@ export const PwaInstallModal: React.FC<PwaInstallModalProps> = ({
               <span>تثبيت التطبيق على الهاتف والحاسوب</span>
             </div>
             <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-tight">
-              ثبّت «المتفوق الصغير» على شاشتك 📲
+              ثبّت «منصة النجاح» على شاشتك 📲
             </h3>
           </div>
         </div>
@@ -90,7 +90,7 @@ export const PwaInstallModal: React.FC<PwaInstallModalProps> = ({
               تم التثبيت بنجاح! 🎉
             </h4>
             <p className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
-              ستجد أيقونة "المتفوق الصغير" الآن على شاشة هاتفك الرئيسية.
+              ستجد أيقونة "منصة النجاح" الآن على شاشة هاتفك الرئيسية.
             </p>
           </div>
         ) : showIOSInstructions ? (

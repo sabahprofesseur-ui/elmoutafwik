@@ -23,7 +23,7 @@ export const PrivacyPage: React.FC = () => {
 
         <div className="space-y-4 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
           <p>
-            تولي منصة <strong>المتفوق الصغير</strong> بالجزائر أهمية قصوى لخصوصية الأطفال وسلامتهم الرقمية وفق التشريعات الوطنية والدولية الصارمة لحماية خصوصية القُصَّر على الإنترنت (COPPA).
+            تولي <strong>منصة النجاح</strong> بالجزائر أهمية قصوى لخصوصية الأطفال وسلامتهم الرقمية وفق التشريعات الوطنية والدولية الصارمة لحماية خصوصية القُصَّر على الإنترنت (COPPA).
           </p>
           <h3 className="text-base font-black text-slate-900 dark:text-white pt-2">
             1. البيانات التي نجمعها
@@ -69,7 +69,7 @@ export const TermsPage: React.FC = () => {
 
         <div className="space-y-4 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
           <p>
-            مرحباً بكم في منصة المتفوق الصغير. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بالشروط والأحكام التالية:
+            مرحباً بكم في <strong>منصة النجاح</strong>. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بالشروط والأحكام التالية:
           </p>
           <h3 className="text-base font-black text-slate-900 dark:text-white pt-2">
             1. الملكية الفكرية
@@ -181,7 +181,7 @@ export const GooglePlayGuidePage: React.FC = () => {
                 <li>افتح الموقع في متصفح Google Chrome.</li>
                 <li>انقر على النقاط الثلاث (⋮) أعلى يمين الشاشة.</li>
                 <li>اختر "تثبيت التطبيق" أو "الإضافة إلى الشاشة الرئيسية" (Install App).</li>
-                <li>ستظهر أيقونة "المتفوق الصغير" مع ثعلوب على شاشة هاتفك مباشرة!</li>
+                <li>ستظهر أيقونة "منصة النجاح" مع ثعلوب على شاشة هاتفك مباشرة!</li>
               </ol>
             </div>
 

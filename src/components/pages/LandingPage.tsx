@@ -80,7 +80,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Subtitle description matching Screenshot 3 */}
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
-          منصة تعليمية متكاملة تقدم المنهاج الجزائري الرسمي بأسلوب تفاعلي حديث يجمع بين اللعب والتعلم.
+          منصة النجاح: منصة تعليمية متكاملة تقدم المنهاج الجزائري الرسمي بأسلوب تفاعلي حديث يجمع بين اللعب والتعلم.
         </p>
 
         {/* Action Buttons Stack matching Screenshot 3 */}
